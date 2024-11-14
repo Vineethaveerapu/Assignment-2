@@ -15,27 +15,34 @@
         <div id="game-board"></div>
 
         <form id="guess-form">
-          <label for="guess-input"
-            >Enter a 5-letter word: only letters, no numbers or symbols
-            <input
-              required
-              autofocus
-              autocomplete="off"
-              type="text"
-              id="guess-input"
-              maxlength="5"
-              pattern="[a-zA-Z]{5}"
-          /></label>
+          <input
+            required
+            autofocus
+            autocomplete="off"
+            type="text"
+            id="guess-input"
+            minlength="5"
+            maxlength="5"
+            pattern="[a-zA-Z]{5}"
+            placeholder="Enter a 5-letter word"
+          />
           <div class="buttons">
             <button type="submit" id="submit-button">Submit</button>
           </div>
         </form>
       </div>
 
+      <!-- hint modal -->
+      <dialog id="hint-dialog">
+        <h2>Hint</h2>
+        <p class="message"></p>
+        <button type="button" id="close-hint">Close</button>
+      </dialog>
+
       <!-- Game Over Modal -->
       <dialog id="game-over-dialog">
         <h2>Game Over!</h2>
-        <p id="message"></p>
+        <p class="message"></p>
         <button type="reset" class="reset">New Game</button>
       </dialog>
 
@@ -57,12 +64,7 @@
         <div class="tile-colors">
           <span class="tile absent"></span> Gray: Incorrect letter.
         </div>
-        <button
-          id="start-button"
-          class="button large centered"
-          type="button"
-          autofocus
-        >
+        <button id="start-button" class="button large centered" type="button">
           Let's Play!
         </button>
       </dialog>

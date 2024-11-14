@@ -19,6 +19,9 @@ let currentAttempt = 0;
 
 // Reset game function
 function resetGame() {
+  // Remove disabled attribute from submit button
+  document.getElementById("submit-button").removeAttribute("disabled");
+
   answer = words[Math.floor(Math.random() * words.length)];
   currentAttempt = 0;
 
@@ -37,13 +40,13 @@ function resetGame() {
 function startGame() {
   const guessInput = document.getElementById("guess-input");
   const gameBoard = document.getElementById("game-board");
-  const startButton = document.getElementById("submit-button");
+  const submitButton = document.getElementById("submit-button");
 
   let gameOver = false;
 
   const guess = guessInput.value.toLowerCase();
 
-  while (currentAttempt < MAX_ATTEMPTS && !gameOver) {
+  while (currentAttempt <= MAX_ATTEMPTS && !gameOver) {
     // Display the guess on the game board
     const rowStart = currentAttempt * WORD_LENGTH;
 
@@ -63,9 +66,12 @@ function startGame() {
 
     // Check if the guess is correct
     if (guess === answer) {
-      showMessage("Congratulations! You guessed the word!");
       gameOver = true;
-      startButton.disabled = true;
+      guessInput.value = "";
+      setTimeout(() => {
+        showMessage("Congratulations! You guessed the word!");
+        submitButton.disabled = true;
+      }, 700);
       break;
     }
 
@@ -76,7 +82,9 @@ function startGame() {
     if (currentAttempt >= MAX_ATTEMPTS) {
       showMessage(`The word was "${answer}".`);
       gameOver = true;
-      startButton.disabled = true;
+      submitButton.disabled = true;
+    } else if (currentAttempt === MAX_ATTEMPTS - 1) {
+      showMessage("The word might be a fruit or a color.", "hint-dialog"); // Hint on last attempt
     }
 
     // Clear input for next guess
@@ -86,17 +94,20 @@ function startGame() {
 }
 
 // Helper function to display messages
-function showMessage(message) {
-  document.getElementById("message").textContent = message;
-  document.getElementById("game-over-dialog").showModal();
+function showMessage(message, dialogId = "game-over-dialog") {
+  const dialogEl = document.getElementById(dialogId);
+  dialogEl.querySelector(".message").textContent = message;
+  dialogEl.showModal();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   const guessForm = document.getElementById("guess-form");
   const dialogElem = document.getElementById("welcome-dialog");
-  const startButton = document.getElementById("start-button");
+  const submitButton = document.getElementById("start-button");
   const resetButton = document.querySelector(".reset");
   const gameOverDialog = document.getElementById("game-over-dialog");
+  const hintDialog = document.getElementById("hint-dialog");
+  const closeHintButton = document.getElementById("close-hint");
 
   // Show welcome dialog
   dialogElem.showModal();
@@ -121,7 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
     startGame();
   });
 
-  startButton.addEventListener("click", () => {
+  submitButton.addEventListener("click", () => {
     dialogElem.close();
+  });
+
+  closeHintButton.addEventListener("click", () => {
+    hintDialog.close();
   });
 });
