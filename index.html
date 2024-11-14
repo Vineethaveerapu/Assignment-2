@@ -16,6 +16,8 @@
       </div>
       <form id="guess-form">
         <input
+          required
+          autofocus
           autocomplete="off"
           type="text"
           id="guess-input"
@@ -25,7 +27,7 @@
         />
         <div class="buttons">
           <button type="submit">Submit</button>
-          <button class="reset" onclick="resetGame()">Reset</button>
+          <button type="reset" class="reset">Reset</button>
         </div>
       </form>
       <p id="message"></p>
