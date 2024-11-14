@@ -2,7 +2,18 @@ const WORD_LENGTH = 5;
 const MAX_ATTEMPTS = 6;
 
 // List of possible words for the game
-const words = ["apple", "stone", "grape", "light", "table", "chair"];
+const words = [
+  "apple",
+  "grape",
+  "peach",
+  "plumb",
+  "mango",
+  "black",
+  "white",
+  "green",
+  "brown",
+  "beige",
+];
 let answer = words[Math.floor(Math.random() * words.length)];
 let currentAttempt = 0;
 
