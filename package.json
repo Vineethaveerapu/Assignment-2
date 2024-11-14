@@ -1,14 +1,20 @@
 {
   "name": "assignment-2",
   "version": "1.0.0",
-  "main": "script.js",
+  "source": "index.html",
+  "type": "module",
+  "engines": {
+    "node": ">=20 <21"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel --open",
+    "build": "parcel build"
   },
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "parcel": "latest",
     "@eslint/js": "^9.14.0",
     "eslint": "^9.14.0",
     "globals": "^15.12.0"
