@@ -13,32 +13,37 @@
       <div class="game-container">
         <h1>Wordle Game</h1>
         <div id="game-board"></div>
+
+        <form id="guess-form">
+          <input
+            required
+            autofocus
+            autocomplete="off"
+            type="text"
+            id="guess-input"
+            maxlength="5"
+            pattern="[a-zA-Z]{5}"
+            placeholder="Enter a 5-letter word"
+          />
+          <div class="buttons">
+            <button type="submit" id="submit-button">Submit</button>
+          </div>
+        </form>
       </div>
-      <form id="guess-form">
-        <input
-          required
-          autofocus
-          autocomplete="off"
-          type="text"
-          id="guess-input"
-          maxlength="5"
-          pattern="[a-zA-Z]{5}"
-          placeholder="Enter a 5-letter word"
-        />
-        <div class="buttons">
-          <button type="submit">Submit</button>
-          <button type="reset" class="reset">Reset</button>
-        </div>
-      </form>
-      <p id="message"></p>
+
+      <!-- Game Over Modal -->
+      <dialog id="game-over-dialog">
+        <h2>Game Over!</h2>
+        <p id="message"></p>
+        <button type="reset" class="reset">New Game</button>
+      </dialog>
 
       <!-- Welcome Modal using <dialog> -->
       <dialog id="welcome-dialog">
         <h2>Welcome to Wordle!</h2>
-        <p>
-          Guess the 5-letter word within 6 attempts. After each guess, the tiles
-          will change color to give you hints:
-        </p>
+        <p>Guess the 5-letter word within 6 attempts.</p>
+        <p>After each guess, the tiles will change color to give you hints.</p>
+
         <h3>Tile Colors:</h3>
         <div class="tile-colors">
           <span class="tile correct"></span> Green: Correct letter, correct
@@ -51,7 +56,14 @@
         <div class="tile-colors">
           <span class="tile absent"></span> Gray: Incorrect letter.
         </div>
-        <button id="start-button">Start Game</button>
+        <button
+          id="start-button"
+          class="button large centered"
+          type="button"
+          autofocus
+        >
+          Let's Play!
+        </button>
       </dialog>
     </main>
   </body>

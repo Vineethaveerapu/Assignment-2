@@ -1,22 +1,21 @@
+const WORD_LENGTH = 5;
+const MAX_ATTEMPTS = 6;
+
 // List of possible words for the game
 const words = ["apple", "stone", "grape", "light", "table", "chair"];
-const answer = words[Math.floor(Math.random() * words.length)]; // Randomly select answer
-const maxAttempts = 6;
-
-const WORD_LENGTH = 5;
-
-// Current attempt
+let answer = words[Math.floor(Math.random() * words.length)];
 let currentAttempt = 0;
 
+// Reset game function
 function resetGame() {
-  // Reset current attempt
+  answer = words[Math.floor(Math.random() * words.length)];
   currentAttempt = 0;
 
   const gameBoard = document.getElementById("game-board");
   gameBoard.innerHTML = "";
 
   // Reset game board
-  for (let i = 0; i < maxAttempts * 5; i++) {
+  for (let i = 0; i < MAX_ATTEMPTS * WORD_LENGTH; i++) {
     const tile = document.createElement("div");
     tile.classList.add("tile");
     gameBoard.appendChild(tile);
@@ -27,22 +26,16 @@ function resetGame() {
 function startGame() {
   const guessInput = document.getElementById("guess-input");
   const gameBoard = document.getElementById("game-board");
+  const startButton = document.getElementById("submit-button");
 
   let gameOver = false;
 
-  // Use a while loop to control attempts
-  while (currentAttempt < maxAttempts && !gameOver) {
-    // Get user guess
-    const guess = guessInput.value.toLowerCase();
+  const guess = guessInput.value.toLowerCase();
 
-    // Validate guess length
-    if (guess.length !== WORD_LENGTH) {
-      showMessage("Please enter exactly 5 characters.");
-      return;
-    }
-
+  while (currentAttempt < MAX_ATTEMPTS && !gameOver) {
     // Display the guess on the game board
     const rowStart = currentAttempt * WORD_LENGTH;
+
     for (let i = 0; i < WORD_LENGTH; i++) {
       const tile = gameBoard.children[rowStart + i];
       tile.textContent = guess[i];
@@ -61,6 +54,7 @@ function startGame() {
     if (guess === answer) {
       showMessage("Congratulations! You guessed the word!");
       gameOver = true;
+      startButton.disabled = true;
       break;
     }
 
@@ -68,26 +62,22 @@ function startGame() {
     currentAttempt++;
 
     // Check if max attempts reached
-    if (currentAttempt >= maxAttempts) {
-      showMessage(`Game Over! The word was "${answer}".`);
+    if (currentAttempt >= MAX_ATTEMPTS) {
+      showMessage(`The word was "${answer}".`);
       gameOver = true;
+      startButton.disabled = true;
     }
 
     // Clear input for next guess
     guessInput.value = "";
-  }
-
-  if (gameOver) {
-    const replay = confirm("Do you want to play again? (yes/no): ");
-    if (replay) {
-      startGame();
-    }
+    break;
   }
 }
 
 // Helper function to display messages
 function showMessage(message) {
   document.getElementById("message").textContent = message;
+  document.getElementById("game-over-dialog").showModal();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -95,28 +85,32 @@ document.addEventListener("DOMContentLoaded", () => {
   const dialogElem = document.getElementById("welcome-dialog");
   const startButton = document.getElementById("start-button");
   const resetButton = document.querySelector(".reset");
+  const gameOverDialog = document.getElementById("game-over-dialog");
 
-  resetButton.addEventListener("click", resetGame);
+  // Show welcome dialog
+  dialogElem.showModal();
+
   // Initialize game board
   const gameBoard = document.getElementById("game-board");
 
-  for (let i = 0; i < maxAttempts * WORD_LENGTH; i++) {
+  for (let i = 0; i < MAX_ATTEMPTS * WORD_LENGTH; i++) {
     const tile = document.createElement("div");
     tile.classList.add("tile");
     gameBoard.appendChild(tile);
   }
 
+  /* Event Listeners */
+  resetButton.addEventListener("click", () => {
+    gameOverDialog.close();
+    resetGame();
+  });
+
   guessForm.addEventListener("submit", (e) => {
     e.preventDefault();
-
     startGame();
   });
 
-  // Show the dialog
-  dialogElem.showModal();
-
   startButton.addEventListener("click", () => {
     dialogElem.close();
-    startGame();
   });
 });
