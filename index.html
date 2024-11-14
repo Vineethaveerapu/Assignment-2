@@ -3,27 +3,54 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Assignment-2</title>
-    <script src="./index.js" defer></script>
-    <link rel="stylesheet" href="./styles.css" />
+    <title>Wordle Game</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
   </head>
   <body>
     <main>
+      <!-- Game Container -->
       <div class="game-container">
-        <h1>Wordle</h1>
+        <h1>Wordle Game</h1>
         <div id="game-board"></div>
+      </div>
+      <form id="guess-form">
         <input
+          autocomplete="off"
           type="text"
           id="guess-input"
           maxlength="5"
+          pattern="[a-zA-Z]{5}"
           placeholder="Enter a 5-letter word"
         />
-      </div>
-      <div class="buttons">
-        <button onclick="startGame()">Submit</button>
-        <button class="reset" onclick="resetGame()">Reset</button>
-      </div>
+        <div class="buttons">
+          <button type="submit">Submit</button>
+          <button class="reset" onclick="resetGame()">Reset</button>
+        </div>
+      </form>
       <p id="message"></p>
+
+      <!-- Welcome Modal using <dialog> -->
+      <dialog id="welcome-dialog">
+        <h2>Welcome to Wordle!</h2>
+        <p>
+          Guess the 5-letter word within 6 attempts. After each guess, the tiles
+          will change color to give you hints:
+        </p>
+        <h3>Tile Colors:</h3>
+        <div class="tile-colors">
+          <span class="tile correct"></span> Green: Correct letter, correct
+          position.
+        </div>
+        <div class="tile-colors">
+          <span class="tile present"></span> Yellow: Correct letter, wrong
+          position.
+        </div>
+        <div class="tile-colors">
+          <span class="tile absent"></span> Gray: Incorrect letter.
+        </div>
+        <button id="start-button">Start Game</button>
+      </dialog>
     </main>
   </body>
 </html>

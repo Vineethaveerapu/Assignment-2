@@ -18,11 +18,12 @@ body {
   max-width: 400px;
 }
 
+/* Game Board */
 #game-board {
   display: grid;
   grid-template-columns: repeat(5, 50px);
   gap: 5px;
-  margin: 20px auto;
+  margin: 20px 0;
   justify-content: center;
 }
 
@@ -57,7 +58,6 @@ body {
   width: 100%;
   text-align: center;
 }
-
 .buttons {
   display: flex;
   justify-content: center;
@@ -93,4 +93,35 @@ button.reset:hover {
   margin-top: 15px;
   font-size: 18px;
   color: #333333;
+}
+
+dialog {
+  border: none;
+  margin: 0 auto;
+  padding: 2rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+dialog h2 {
+  margin-bottom: 15px;
+}
+
+dialog p,
+dialog ul {
+  margin-bottom: 15px;
+}
+
+.tile-colors {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }

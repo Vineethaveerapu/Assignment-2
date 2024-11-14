@@ -86,3 +86,21 @@ function startGame() {
 function showMessage(message) {
   document.getElementById("message").textContent = message;
 }
+
+document.addEventListener("DOMContentLoaded", () => {
+  const guessForm = document.getElementById("guess-form");
+  const dialogElem = document.getElementById("welcome-dialog");
+  const startButton = document.getElementById("start-button");
+
+  guessForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+  });
+
+  // Show the dialog
+  dialogElem.showModal();
+
+  startButton.addEventListener("click", () => {
+    dialogElem.close();
+    startGame();
+  });
+});
