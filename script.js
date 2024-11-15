@@ -17,7 +17,6 @@ const words = [
 let answer = words[Math.floor(Math.random() * words.length)];
 let currentAttempt = 0;
 
-// Reset game function
 function resetGame() {
   // Remove disabled attribute from submit button
   document.getElementById("submit-button").removeAttribute("disabled");
@@ -56,11 +55,11 @@ function startGame() {
 
       // Color feedback
       if (guess[i] === answer[i]) {
-        tile.classList.add("correct"); // Green for correct position
+        tile.classList.add("correct");
       } else if (answer.includes(guess[i])) {
-        tile.classList.add("present"); // Yellow for correct letter, wrong position
+        tile.classList.add("present");
       } else {
-        tile.classList.add("absent"); // Gray for incorrect letter
+        tile.classList.add("absent");
       }
     }
 
